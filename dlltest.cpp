@@ -7,6 +7,19 @@
 #define DLL_EXPORT
 #endif
 // zig c++ -shared -std=c++2a -O3 -g0 dlltest.cpp -o mytest.dll
+
+/*
+How to use it in Python
+testlib = CDLL(r"C:\ProgramData\anaconda3\envs\strarraytest\mytest.dll")
+add_vecs_int = testlib.add_vecs_int
+add_vecs_int.argtypes = [
+    c_size_t,
+    c_size_t,
+    c_size_t,
+    c_size_t,
+]
+add_vecs_int.restype = None
+*/
 extern "C" DLL_EXPORT void add_vecs_int(size_t array1, size_t size_array1, size_t string2search, size_t size_string2search) {
     std::span<char> span_string2search{ (char*)string2search, size_string2search };
     std::string_view sv_string2search{ span_string2search.begin(), span_string2search.end() };
